@@ -1,4 +1,4 @@
-package com.board.board;
+package com.board.post;
 
 import lombok.Getter;
 
@@ -7,22 +7,26 @@ import java.time.LocalDate;
 @Getter
 public class Post {
 
-    private Long id;
+    private Long postId;
     private String title;
     private String content;
     private String memberId;
     private LocalDate createdDate;
 
     // 여기서부터 .. 작성
-    public Post(Long id, String title, String content, String memberId, LocalDate createdDate) {
-        this.id = id;
+    public Post(Long postId, String title, String content, String memberId, LocalDate createdDate) {
+        this.postId = postId;
         this.title = title;
         this.content = content;
         this.memberId = memberId;
         this.createdDate = createdDate;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long posrtId) {
+        this.postId = posrtId;
+    }
+
+    public Long getPostId() {
+        return postId;
     }
 }

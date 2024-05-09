@@ -1,4 +1,4 @@
-package com.board.board;
+package com.board.post;
 
 public class PostCreateRequest {
 }

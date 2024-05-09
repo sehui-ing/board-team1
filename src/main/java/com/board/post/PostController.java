@@ -1,4 +1,4 @@
-package com.board.board;
+package com.board.post;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -31,14 +31,15 @@ public class PostController {
             @RequestBody PostCreateRequest request) {
         return ResponseEntity.created(URI.create("/posts" + )).build();
     }
+
     @PutMapping("/{postId}")
     public void updatePost(@PathVariable("postId") Long postId, @RequestBody ) {
         postService.updatePost();
     }
 
     @DeleteMapping("/{postId}")
-    public void delete(@PathVariable Long postId) {
-        postService.delete();
+    public void deletePost(Long userId, @PathVariable Long postId) {
+        postService.delete(userId, postId);
     }
 
     @GetMapping
