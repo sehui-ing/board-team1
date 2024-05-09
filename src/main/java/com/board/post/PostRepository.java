@@ -25,8 +25,8 @@ public class PostRepository {
         posts.remove(post.getPostId());
     }
 
-    public Optional<Post> findById(Long userId) {
-        return Optional.ofNullable(posts.get(userId));
+    public Optional<Post> findById(Long postId) {
+        return Optional.ofNullable(posts.get(postId));
     }
 
     public List<Post> findAllPost() {

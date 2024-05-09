@@ -4,7 +4,9 @@ import com.board.user.User;
 import com.board.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -17,26 +19,38 @@ public class PostService {
     // 여기서부터 메서드 작성 ??
     // 해야 하는데 못 했습니다 ..
 
-    public Long save(String title, String content, String userId) {
+    public Long save(Long postId, String title, String content, Long userId) {
         // 유저 레포지토리에서 유저 찾고 ?
-        // 포스트 찾고 ?
-        // 리턴
+        User user = userRepository.findById(userId)
+                .orElseThrow();
 
-        return null;
+        // 포스트 찾고 ?
+        Post post = postRepository.findById(postId)
+                .orElseThrow();
+
+        // 리턴
+        return postRepository.savePost(post)
+                .getPostId();
     }
 
-    public void updatePost(Long userId, String title, String content) {
+    public void updatePost(Long userId, Long postId, String title, String content, String memberId, LocalDate createdDate) {
         // 유저 찾고
-        // 포스트를 유저로 찾고
-        // 업뎃하고
+        User user = userRepository.findById(userId)
+                .orElseThrow();
 
-        // 아 여기서 포스트를 유저로 찾으려면 findById 구현을 ..
-        Post post = postRepository.findById(userId);
+        // 포스트를 유저로 찾고
+        Post post = postRepository.findById(userId)
+                .orElseThrow();
+
+        // 업뎃하고
+        post.update(postId, title, content, memberId, createdDate);
     }
 
     public void delete(Long userId, Long postId) {
-        User user = userRepository.findById(userId);
-        Post post = postRepository.findById(postId);
+        User user = userRepository.findById(userId)
+                .orElseThrow();
+        Post post = postRepository.findById(postId)
+                .orElseThrow();
 
         postRepository.deletePost(post);
     }
@@ -44,11 +58,17 @@ public class PostService {
     public List<PostResponse> getPosts() {
         List<Post> postList = postRepository.findAllPost();
         return postList.stream()
-                .map(post -> )
+                .map(post -> new PostResponse(post.getPostId(),
+                        post.getTitle(),
+                        post.getContent(),
+                        post.getMemberId(),
+                        post.getCreatedDate()))
+                .toList();
     }
 
     public PostResponse getPostById(Long postId) {
-        Post post = postRepository.findById(postId);
+        Post post = postRepository.findById(postId)
+                .orElseThrow();
 
         return new PostResponse(post.getPostId(), post.getTitle(), post.getContent(),
                 post.getMemberId(), post.getCreatedDate());

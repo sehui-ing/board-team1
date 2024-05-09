@@ -1,9 +1,11 @@
 package com.board.post;
 
+import jakarta.persistence.Entity;
 import lombok.Getter;
 
 import java.time.LocalDate;
 
+@Entity
 @Getter
 public class Post {
 
@@ -28,5 +30,13 @@ public class Post {
 
     public Long getPostId() {
         return postId;
+    }
+
+    public void update(Long postId, String title, String content, String memberId, LocalDate createdDate) {
+        this.postId = postId;
+        this.title = title;
+        this.content = content;
+        this.memberId = memberId;
+        this.createdDate = createdDate;
     }
 }

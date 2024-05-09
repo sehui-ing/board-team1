@@ -1,4 +1,11 @@
 package com.board.post;
 
-public class PostResponse {
+import java.time.LocalDate;
+
+public record PostResponse(
+        Long userId,
+        String title,
+        String content,
+        String memberId,
+        LocalDate createdDate) {
 }
